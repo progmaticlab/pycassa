@@ -32,7 +32,7 @@ class ColumnValidatorDict(DictMixin):
         self.type_map = {}
         self.packers = {}
         self.unpackers = {}
-        for item, value in other_dict.items():
+        for item, value in list(other_dict.items()):
             packed_item = self.name_packer(item)
             self[packed_item] = value
 
@@ -58,7 +58,7 @@ class ColumnValidatorDict(DictMixin):
         del self.unpackers[packed_item]
 
     def keys(self):
-        return map(self.name_unpacker, self.type_map.keys())
+        return list(map(self.name_unpacker, list(self.type_map.keys())))
 
 def gm_timestamp():
     """ Returns the number of microseconds since the Unix Epoch. """
@@ -288,7 +288,7 @@ class ColumnFamily(object):
                              "dict_class", "buffer_size", "autopack_names",
                              "autopack_values", "autopack_keys",
                              "retry_counter_mutations")
-        for k, v in kwargs.iteritems():
+        for k, v in kwargs.items():
             if k in recognized_kwargs:
                 setattr(self, k, v)
             else:
@@ -327,7 +327,7 @@ class ColumnFamily(object):
     def _load_validation_classes(self):
         self.default_validation_class = self._cfdef.default_validation_class
         self.column_validators = {}
-        for name, coldef in self._cfdef.column_metadata.items():
+        for name, coldef in list(self._cfdef.column_metadata.items()):
             unpacked_name = self._unpack_name(name)
             self.column_validators[unpacked_name] = coldef.validation_class
 
@@ -413,7 +413,7 @@ class ColumnFamily(object):
             return
 
         if not self.autopack_names:
-            if not isinstance(value, basestring):
+            if not isinstance(value, str):
                 raise TypeError("A str or unicode column name was expected, " +
                                 "but %s was received instead (%s)"
                                 % (value.__class__.__name__, str(value)))
@@ -455,7 +455,7 @@ class ColumnFamily(object):
             return
 
         if not self.autopack_values:
-            if not isinstance(value, basestring):
+            if not isinstance(value, str):
                 raise TypeError("A str or unicode column value was expected for " +
                                 "column '%s', but %s was received instead (%s)"
                                 % (str(col_name), value.__class__.__name__, str(value)))
@@ -505,13 +505,11 @@ class ColumnFamily(object):
         _pack_name = self._pack_name
         _pack_value = self._pack_value
         if not self.super:
-            return map(lambda (c, v): Mutation(self._make_cosc(_pack_name(c), _pack_value(v, c), timestamp, ttl)),
-                       columns.iteritems())
+            return [Mutation(self._make_cosc(_pack_name(c_v1[0]), _pack_value(c_v1[1], c_v1[0]), timestamp, ttl)) for c_v1 in iter(columns.items())]
         else:
             mut_list = []
-            for super_col, subcs in columns.items():
-                subcols = map(lambda (c, v): self._make_column(_pack_name(c), _pack_value(v, c), timestamp, ttl),
-                              subcs.iteritems())
+            for super_col, subcs in list(columns.items()):
+                subcols = [self._make_column(_pack_name(c_v[0]), _pack_value(c_v[1], c_v[0]), timestamp, ttl) for c_v in iter(subcs.items())]
                 mut_list.append(Mutation(self._make_cosc(_pack_name(super_col, True), subcols)))
             return mut_list
 
@@ -758,7 +756,7 @@ class ColumnFamily(object):
 
         """
 
-        packed_keys = map(self._pack_key, keys)
+        packed_keys = list(map(self._pack_key, keys))
         cp = self._column_parent(super_column)
         sp = self._slice_predicate(columns, column_start, column_finish,
                                    column_reversed, column_count, super_column)
@@ -780,7 +778,7 @@ class ColumnFamily(object):
             ret[key] = None
 
         empty_keys = []
-        for packed_key, columns in keymap.iteritems():
+        for packed_key, columns in keymap.items():
             unpacked_key = self._unpack_key(packed_key)
             if len(columns) > 0:
                 ret[unpacked_key] = self._cosc_to_dict(columns, include_timestamp, include_ttl)
@@ -848,7 +846,7 @@ class ColumnFamily(object):
         if max_count is None:
             max_count = self.MAX_COUNT
 
-        packed_keys = map(self._pack_key, keys)
+        packed_keys = list(map(self._pack_key, keys))
         cp = self._column_parent(super_column)
         sp = self._slice_predicate(columns, column_start, column_finish,
                                    column_reversed, max_count, super_column)
@@ -869,7 +867,7 @@ class ColumnFamily(object):
         for key in keys:
             ret[key] = None
 
-        for packed_key, count in keymap.iteritems():
+        for packed_key, count in keymap.items():
             ret[self._unpack_key(packed_key)] = count
 
         return ret
@@ -1035,7 +1033,7 @@ class ColumnFamily(object):
 
         cf = self.column_family
         mutations = {}
-        for key, columns in rows.iteritems():
+        for key, columns in rows.items():
             packed_key = self._pack_key(key)
             mut_list = self._make_mutation_list(columns, timestamp, ttl)
             mutations[packed_key] = {cf: mut_list}

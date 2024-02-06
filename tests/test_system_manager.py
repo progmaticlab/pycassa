@@ -87,13 +87,13 @@ class SystemManagerTest(unittest.TestCase):
         pool = ConnectionPool(TEST_KS)
         cf = ColumnFamily(pool, 'ValidatedCF')
         cf.insert('key', {'name': 'John', 'age': 40})
-        self.assertEquals(cf.get('key'), {'name': 'John', 'age': 40})
+        self.assertEqual(cf.get('key'), {'name': 'John', 'age': 40})
 
         validators = {'name': ASCII_TYPE, 'age': INT_TYPE}
         sys.alter_column_family(TEST_KS, 'ValidatedCF',
                 column_validation_classes=validators)
         cf.load_schema()
-        self.assertEquals(cf.get('key'), {'name': 'John', 'age': 40})
+        self.assertEqual(cf.get('key'), {'name': 'John', 'age': 40})
 
     def test_caching_pre_11(self):
         version = tuple(

@@ -100,7 +100,7 @@ class SystemManagerStub(object):
         self.column_families[table_name]['indexes'][column_name] = column_type
 
     def _schema(self):
-        ret = ','.join(self.column_families.keys())
+        ret = ','.join(list(self.column_families.keys()))
         for k in self.column_families:
             for v in ('columns', 'indexes'):
                 ret += ','.join(self.column_families[k][v])
@@ -124,7 +124,7 @@ class ColumnFamilyStub(object):
 
     def __init__(self, pool=None, column_family=None, rows=None, **kwargs):
         rows = rows or OrderedDict()
-        for r in rows.itervalues():
+        for r in rows.values():
             if not isinstance(r, DictWithTime):
                 r = DictWithTime(r)
         self.rows = rows
@@ -150,7 +150,7 @@ class ColumnFamilyStub(object):
         if not my_columns:
             raise NotFoundException()
 
-        items = my_columns.items()
+        items = list(my_columns.items())
         if isinstance(items[0], UUID) and items[0].version == 1:
             items.sort(key=lambda uuid: uuid.time)
         elif isinstance(items[0], tuple) and any(isinstance(x, UUID) for x in items[0]):
@@ -210,7 +210,7 @@ class ColumnFamilyStub(object):
         for column in columns:
             self.rows[key].__setitem__(column, columns[column], timestamp)
 
-        return self.rows[key][columns.keys()[0]][1]
+        return self.rows[key][list(columns.keys())[0]][1]
 
     def get_indexed_slices(self, index_clause, **kwargs):
         """Grabs rows that match a pycassa index clause.
@@ -219,7 +219,7 @@ class ColumnFamilyStub(object):
         index clause."""
 
         keys = []
-        for key, row in self.rows.iteritems():
+        for key, row in self.rows.items():
             for expr in index_clause.expressions:
                 if (
                     expr.column_name in row and
@@ -227,7 +227,7 @@ class ColumnFamilyStub(object):
                 ):
                     keys.append(key)
 
-        data = self.multiget(keys, **kwargs).items()
+        data = list(self.multiget(keys, **kwargs).items())
         return data
 
     def remove(self, key, columns=None):

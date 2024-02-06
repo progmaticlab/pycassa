@@ -1,5 +1,5 @@
 import struct
-from cStringIO import StringIO
+from io import StringIO
 
 from thrift.transport import TTransport, TSocket, TSSLSocket
 from thrift.transport.TTransport import (TTransportBase, CReadableTransport,

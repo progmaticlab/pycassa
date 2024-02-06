@@ -16,8 +16,8 @@ def setup_package():
                                  default_validation_class='CounterColumnType')
         sys.create_column_family(TEST_KS, 'SuperCounter1', super=True,
                                  default_validation_class='CounterColumnType')
-    except Exception, e:
-        print e
+    except Exception as e:
+        print(e)
         try:
             sys.drop_keyspace(TEST_KS)
         except:

@@ -54,14 +54,14 @@ class rpm(Command):
             if status:
                 raise RuntimeError("RPM build failed")
 
-            print ""
-            print "RPM built"
+            print("")
+            print("RPM built")
         else:
-            print """
+            print("""
 `setup.py rpm` is not supported for this version of Python.
 
 Please ask in the user forums for help.
-"""
+""")
 
 class doc(Command):
 
@@ -97,15 +97,15 @@ class doc(Command):
             if status:
                 raise RuntimeError("documentation step '%s' failed" % mode)
 
-            print ""
-            print "Documentation step '%s' performed, results here:" % mode
-            print "   %s/" % path
+            print("")
+            print("Documentation step '%s' performed, results here:" % mode)
+            print("   %s/" % path)
         else:
-            print """
+            print("""
 `setup.py doc` is not supported for this version of Python.
 
 Please ask in the user forums for help.
-"""
+""")
 
 
 setup(
@@ -124,7 +124,7 @@ setup(
                   'pycassa.logging',
                   'pycassa.contrib'],
       tests_require = ['nose'],
-      install_requires = ['thrift==0.9.3'],
+      install_requires = ['thrift==0.16.0'],
       py_modules=['ez_setup'],
       scripts=['pycassaShell'],
       cmdclass={"doc": doc, "rpm": rpm},

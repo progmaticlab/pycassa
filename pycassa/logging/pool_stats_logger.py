@@ -1,4 +1,4 @@
-import pycassa_logger
+from . import pycassa_logger
 import logging
 import threading
 import functools

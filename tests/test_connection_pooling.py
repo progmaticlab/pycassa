@@ -93,7 +93,7 @@ class PoolingCase(unittest.TestCase):
         assert_equal(stats_logger.stats['checked_in'], 20)
         assert_equal(stats_logger.stats['disposed']['success'], 10)
 
-        print "in test:", id(conns[-1])
+        print("in test:", id(conns[-1]))
         conns[-1].return_to_pool()
         assert_equal(stats_logger.stats['checked_in'], 20)
         assert_equal(stats_logger.stats['disposed']['success'], 10)

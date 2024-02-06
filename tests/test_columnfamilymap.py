@@ -36,7 +36,7 @@ class TestUTF8(object):
     datetimecol = types.DateType()
 
     def __str__(self):
-        return str(map(str, [self.strcol, self.intcol, self.floatcol, self.datetimecol]))
+        return str(list(map(str, [self.strcol, self.intcol, self.floatcol, self.datetimecol])))
 
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
@@ -92,7 +92,7 @@ class TestColumnFamilyMap(unittest.TestCase):
         instance = self.instance()
         assert_raises(NotFoundException, self.map.get, instance.key)
         ts = self.map.insert(instance)
-        assert_true(isinstance(ts, (int, long)))
+        assert_true(isinstance(ts, int))
         assert_equal(self.map.get(instance.key), instance)
 
     def test_insert_get_omitting_columns(self):
@@ -122,20 +122,20 @@ class TestColumnFamilyMap(unittest.TestCase):
     def test_insert_get_indexed_slices(self):
         instance1 = TestIndex()
         instance1.key = 'key1'
-        instance1.birthdate = 1L
+        instance1.birthdate = 1
         self.indexed_map.insert(instance1)
 
         instance2 = TestIndex()
         instance2.key = 'key2'
-        instance2.birthdate = 1L
+        instance2.birthdate = 1
         self.indexed_map.insert(instance2)
 
         instance3 = TestIndex()
         instance3.key = 'key3'
-        instance3.birthdate = 2L
+        instance3.birthdate = 2
         self.indexed_map.insert(instance3)
 
-        expr = index.create_index_expression(column_name='birthdate', value=2L)
+        expr = index.create_index_expression(column_name='birthdate', value=2)
         clause = index.create_index_clause([expr])
 
         result = self.indexed_map.get_indexed_slices(index_clause=clause)
@@ -223,7 +223,7 @@ class TestSuperColumnFamilyMap(unittest.TestCase):
 
     def tearDown(self):
         for scols in self.map.get_range():
-            for instance in scols.values():
+            for instance in list(scols.values()):
                 self.map.remove(instance)
 
     def instance(self, super_column):

@@ -7,7 +7,7 @@
 #
 
 from thrift.Thrift import TType, TMessageType, TException, TApplicationException
-from ttypes import *
+from .ttypes import *
 from thrift.Thrift import TProcessor
 from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol, TProtocol
@@ -2849,7 +2849,7 @@ class login_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -2923,7 +2923,7 @@ class login_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -2985,7 +2985,7 @@ class set_keyspace_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3046,7 +3046,7 @@ class set_keyspace_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3137,7 +3137,7 @@ class get_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3249,7 +3249,7 @@ class get_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3355,7 +3355,7 @@ class get_slice_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3399,7 +3399,7 @@ class get_slice_result(object):
         if ftype == TType.LIST:
           self.success = []
           (_etype171, _size168) = iprot.readListBegin()
-          for _i172 in xrange(_size168):
+          for _i172 in range(_size168):
             _elem173 = ColumnOrSuperColumn()
             _elem173.read(iprot)
             self.success.append(_elem173)
@@ -3462,7 +3462,7 @@ class get_slice_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3568,7 +3568,7 @@ class get_count_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3666,7 +3666,7 @@ class get_count_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3711,7 +3711,7 @@ class multiget_slice_args(object):
         if ftype == TType.LIST:
           self.keys = []
           (_etype178, _size175) = iprot.readListBegin()
-          for _i179 in xrange(_size175):
+          for _i179 in range(_size175):
             _elem180 = iprot.readString();
             self.keys.append(_elem180)
           iprot.readListEnd()
@@ -3780,7 +3780,7 @@ class multiget_slice_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3824,11 +3824,11 @@ class multiget_slice_result(object):
         if ftype == TType.MAP:
           self.success = {}
           (_ktype183, _vtype184, _size182 ) = iprot.readMapBegin() 
-          for _i186 in xrange(_size182):
+          for _i186 in range(_size182):
             _key187 = iprot.readString();
             _val188 = []
             (_etype192, _size189) = iprot.readListBegin()
-            for _i193 in xrange(_size189):
+            for _i193 in range(_size189):
               _elem194 = ColumnOrSuperColumn()
               _elem194.read(iprot)
               _val188.append(_elem194)
@@ -3868,7 +3868,7 @@ class multiget_slice_result(object):
     if self.success is not None:
       oprot.writeFieldBegin('success', TType.MAP, 0)
       oprot.writeMapBegin(TType.STRING, TType.LIST, len(self.success))
-      for kiter195,viter196 in self.success.items():
+      for kiter195,viter196 in list(self.success.items()):
         oprot.writeString(kiter195)
         oprot.writeListBegin(TType.STRUCT, len(viter196))
         for iter197 in viter196:
@@ -3897,7 +3897,7 @@ class multiget_slice_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -3942,7 +3942,7 @@ class multiget_count_args(object):
         if ftype == TType.LIST:
           self.keys = []
           (_etype201, _size198) = iprot.readListBegin()
-          for _i202 in xrange(_size198):
+          for _i202 in range(_size198):
             _elem203 = iprot.readString();
             self.keys.append(_elem203)
           iprot.readListEnd()
@@ -4011,7 +4011,7 @@ class multiget_count_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -4055,7 +4055,7 @@ class multiget_count_result(object):
         if ftype == TType.MAP:
           self.success = {}
           (_ktype206, _vtype207, _size205 ) = iprot.readMapBegin() 
-          for _i209 in xrange(_size205):
+          for _i209 in range(_size205):
             _key210 = iprot.readString();
             _val211 = iprot.readI32();
             self.success[_key210] = _val211
@@ -4093,7 +4093,7 @@ class multiget_count_result(object):
     if self.success is not None:
       oprot.writeFieldBegin('success', TType.MAP, 0)
       oprot.writeMapBegin(TType.STRING, TType.I32, len(self.success))
-      for kiter212,viter213 in self.success.items():
+      for kiter212,viter213 in list(self.success.items()):
         oprot.writeString(kiter212)
         oprot.writeI32(viter213)
       oprot.writeMapEnd()
@@ -4119,7 +4119,7 @@ class multiget_count_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -4226,7 +4226,7 @@ class get_range_slices_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -4270,7 +4270,7 @@ class get_range_slices_result(object):
         if ftype == TType.LIST:
           self.success = []
           (_etype217, _size214) = iprot.readListBegin()
-          for _i218 in xrange(_size214):
+          for _i218 in range(_size214):
             _elem219 = KeySlice()
             _elem219.read(iprot)
             self.success.append(_elem219)
@@ -4333,7 +4333,7 @@ class get_range_slices_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -4438,7 +4438,7 @@ class get_paged_slice_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -4482,7 +4482,7 @@ class get_paged_slice_result(object):
         if ftype == TType.LIST:
           self.success = []
           (_etype224, _size221) = iprot.readListBegin()
-          for _i225 in xrange(_size221):
+          for _i225 in range(_size221):
             _elem226 = KeySlice()
             _elem226.read(iprot)
             self.success.append(_elem226)
@@ -4545,7 +4545,7 @@ class get_paged_slice_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -4652,7 +4652,7 @@ class get_indexed_slices_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -4696,7 +4696,7 @@ class get_indexed_slices_result(object):
         if ftype == TType.LIST:
           self.success = []
           (_etype231, _size228) = iprot.readListBegin()
-          for _i232 in xrange(_size228):
+          for _i232 in range(_size228):
             _elem233 = KeySlice()
             _elem233.read(iprot)
             self.success.append(_elem233)
@@ -4759,7 +4759,7 @@ class get_indexed_slices_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -4865,7 +4865,7 @@ class insert_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -4952,7 +4952,7 @@ class insert_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5058,7 +5058,7 @@ class add_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5145,7 +5145,7 @@ class add_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5248,7 +5248,7 @@ class remove_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5335,7 +5335,7 @@ class remove_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5426,7 +5426,7 @@ class remove_counter_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5513,7 +5513,7 @@ class remove_counter_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5552,15 +5552,15 @@ class batch_mutate_args(object):
         if ftype == TType.MAP:
           self.mutation_map = {}
           (_ktype236, _vtype237, _size235 ) = iprot.readMapBegin() 
-          for _i239 in xrange(_size235):
+          for _i239 in range(_size235):
             _key240 = iprot.readString();
             _val241 = {}
             (_ktype243, _vtype244, _size242 ) = iprot.readMapBegin() 
-            for _i246 in xrange(_size242):
+            for _i246 in range(_size242):
               _key247 = iprot.readString();
               _val248 = []
               (_etype252, _size249) = iprot.readListBegin()
-              for _i253 in xrange(_size249):
+              for _i253 in range(_size249):
                 _elem254 = Mutation()
                 _elem254.read(iprot)
                 _val248.append(_elem254)
@@ -5589,10 +5589,10 @@ class batch_mutate_args(object):
     if self.mutation_map is not None:
       oprot.writeFieldBegin('mutation_map', TType.MAP, 1)
       oprot.writeMapBegin(TType.STRING, TType.MAP, len(self.mutation_map))
-      for kiter255,viter256 in self.mutation_map.items():
+      for kiter255,viter256 in list(self.mutation_map.items()):
         oprot.writeString(kiter255)
         oprot.writeMapBegin(TType.STRING, TType.LIST, len(viter256))
-        for kiter257,viter258 in viter256.items():
+        for kiter257,viter258 in list(viter256.items()):
           oprot.writeString(kiter257)
           oprot.writeListBegin(TType.STRUCT, len(viter258))
           for iter259 in viter258:
@@ -5618,7 +5618,7 @@ class batch_mutate_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5705,7 +5705,7 @@ class batch_mutate_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5744,15 +5744,15 @@ class atomic_batch_mutate_args(object):
         if ftype == TType.MAP:
           self.mutation_map = {}
           (_ktype261, _vtype262, _size260 ) = iprot.readMapBegin() 
-          for _i264 in xrange(_size260):
+          for _i264 in range(_size260):
             _key265 = iprot.readString();
             _val266 = {}
             (_ktype268, _vtype269, _size267 ) = iprot.readMapBegin() 
-            for _i271 in xrange(_size267):
+            for _i271 in range(_size267):
               _key272 = iprot.readString();
               _val273 = []
               (_etype277, _size274) = iprot.readListBegin()
-              for _i278 in xrange(_size274):
+              for _i278 in range(_size274):
                 _elem279 = Mutation()
                 _elem279.read(iprot)
                 _val273.append(_elem279)
@@ -5781,10 +5781,10 @@ class atomic_batch_mutate_args(object):
     if self.mutation_map is not None:
       oprot.writeFieldBegin('mutation_map', TType.MAP, 1)
       oprot.writeMapBegin(TType.STRING, TType.MAP, len(self.mutation_map))
-      for kiter280,viter281 in self.mutation_map.items():
+      for kiter280,viter281 in list(self.mutation_map.items()):
         oprot.writeString(kiter280)
         oprot.writeMapBegin(TType.STRING, TType.LIST, len(viter281))
-        for kiter282,viter283 in viter281.items():
+        for kiter282,viter283 in list(viter281.items()):
           oprot.writeString(kiter282)
           oprot.writeListBegin(TType.STRUCT, len(viter283))
           for iter284 in viter283:
@@ -5810,7 +5810,7 @@ class atomic_batch_mutate_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5897,7 +5897,7 @@ class atomic_batch_mutate_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -5959,7 +5959,7 @@ class truncate_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6046,7 +6046,7 @@ class truncate_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6088,7 +6088,7 @@ class describe_schema_versions_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6126,11 +6126,11 @@ class describe_schema_versions_result(object):
         if ftype == TType.MAP:
           self.success = {}
           (_ktype286, _vtype287, _size285 ) = iprot.readMapBegin() 
-          for _i289 in xrange(_size285):
+          for _i289 in range(_size285):
             _key290 = iprot.readString();
             _val291 = []
             (_etype295, _size292) = iprot.readListBegin()
-            for _i296 in xrange(_size292):
+            for _i296 in range(_size292):
               _elem297 = iprot.readString();
               _val291.append(_elem297)
             iprot.readListEnd()
@@ -6157,7 +6157,7 @@ class describe_schema_versions_result(object):
     if self.success is not None:
       oprot.writeFieldBegin('success', TType.MAP, 0)
       oprot.writeMapBegin(TType.STRING, TType.LIST, len(self.success))
-      for kiter298,viter299 in self.success.items():
+      for kiter298,viter299 in list(self.success.items()):
         oprot.writeString(kiter298)
         oprot.writeListBegin(TType.STRING, len(viter299))
         for iter300 in viter299:
@@ -6178,7 +6178,7 @@ class describe_schema_versions_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6220,7 +6220,7 @@ class describe_keyspaces_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6258,7 +6258,7 @@ class describe_keyspaces_result(object):
         if ftype == TType.LIST:
           self.success = []
           (_etype304, _size301) = iprot.readListBegin()
-          for _i305 in xrange(_size301):
+          for _i305 in range(_size301):
             _elem306 = KsDef()
             _elem306.read(iprot)
             self.success.append(_elem306)
@@ -6301,7 +6301,7 @@ class describe_keyspaces_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6343,7 +6343,7 @@ class describe_cluster_name_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6402,7 +6402,7 @@ class describe_cluster_name_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6444,7 +6444,7 @@ class describe_version_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6503,7 +6503,7 @@ class describe_version_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6565,7 +6565,7 @@ class describe_ring_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6603,7 +6603,7 @@ class describe_ring_result(object):
         if ftype == TType.LIST:
           self.success = []
           (_etype311, _size308) = iprot.readListBegin()
-          for _i312 in xrange(_size308):
+          for _i312 in range(_size308):
             _elem313 = TokenRange()
             _elem313.read(iprot)
             self.success.append(_elem313)
@@ -6646,7 +6646,7 @@ class describe_ring_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6688,7 +6688,7 @@ class describe_token_map_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6726,7 +6726,7 @@ class describe_token_map_result(object):
         if ftype == TType.MAP:
           self.success = {}
           (_ktype316, _vtype317, _size315 ) = iprot.readMapBegin() 
-          for _i319 in xrange(_size315):
+          for _i319 in range(_size315):
             _key320 = iprot.readString();
             _val321 = iprot.readString();
             self.success[_key320] = _val321
@@ -6752,7 +6752,7 @@ class describe_token_map_result(object):
     if self.success is not None:
       oprot.writeFieldBegin('success', TType.MAP, 0)
       oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.success))
-      for kiter322,viter323 in self.success.items():
+      for kiter322,viter323 in list(self.success.items()):
         oprot.writeString(kiter322)
         oprot.writeString(viter323)
       oprot.writeMapEnd()
@@ -6770,7 +6770,7 @@ class describe_token_map_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6812,7 +6812,7 @@ class describe_partitioner_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6871,7 +6871,7 @@ class describe_partitioner_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6913,7 +6913,7 @@ class describe_snitch_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -6972,7 +6972,7 @@ class describe_snitch_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7034,7 +7034,7 @@ class describe_keyspace_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7120,7 +7120,7 @@ class describe_keyspace_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7224,7 +7224,7 @@ class describe_splits_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7262,7 +7262,7 @@ class describe_splits_result(object):
         if ftype == TType.LIST:
           self.success = []
           (_etype327, _size324) = iprot.readListBegin()
-          for _i328 in xrange(_size324):
+          for _i328 in range(_size324):
             _elem329 = iprot.readString();
             self.success.append(_elem329)
           iprot.readListEnd()
@@ -7304,7 +7304,7 @@ class describe_splits_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7346,7 +7346,7 @@ class trace_next_query_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7405,7 +7405,7 @@ class trace_next_query_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7509,7 +7509,7 @@ class describe_splits_ex_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7547,7 +7547,7 @@ class describe_splits_ex_result(object):
         if ftype == TType.LIST:
           self.success = []
           (_etype334, _size331) = iprot.readListBegin()
-          for _i335 in xrange(_size331):
+          for _i335 in range(_size331):
             _elem336 = CfSplit()
             _elem336.read(iprot)
             self.success.append(_elem336)
@@ -7590,7 +7590,7 @@ class describe_splits_ex_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7653,7 +7653,7 @@ class system_add_column_family_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7738,7 +7738,7 @@ class system_add_column_family_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7800,7 +7800,7 @@ class system_drop_column_family_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7885,7 +7885,7 @@ class system_drop_column_family_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -7948,7 +7948,7 @@ class system_add_keyspace_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8033,7 +8033,7 @@ class system_add_keyspace_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8095,7 +8095,7 @@ class system_drop_keyspace_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8180,7 +8180,7 @@ class system_drop_keyspace_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8243,7 +8243,7 @@ class system_update_keyspace_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8328,7 +8328,7 @@ class system_update_keyspace_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8391,7 +8391,7 @@ class system_update_column_family_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8476,7 +8476,7 @@ class system_update_column_family_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8552,7 +8552,7 @@ class execute_cql_query_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8664,7 +8664,7 @@ class execute_cql_query_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8754,7 +8754,7 @@ class execute_cql3_query_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8866,7 +8866,7 @@ class execute_cql3_query_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -8942,7 +8942,7 @@ class prepare_cql_query_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -9015,7 +9015,7 @@ class prepare_cql_query_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -9091,7 +9091,7 @@ class prepare_cql3_query_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -9164,7 +9164,7 @@ class prepare_cql3_query_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -9208,7 +9208,7 @@ class execute_prepared_cql_query_args(object):
         if ftype == TType.LIST:
           self.values = []
           (_etype341, _size338) = iprot.readListBegin()
-          for _i342 in xrange(_size338):
+          for _i342 in range(_size338):
             _elem343 = iprot.readString();
             self.values.append(_elem343)
           iprot.readListEnd()
@@ -9248,7 +9248,7 @@ class execute_prepared_cql_query_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -9360,7 +9360,7 @@ class execute_prepared_cql_query_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -9407,7 +9407,7 @@ class execute_prepared_cql3_query_args(object):
         if ftype == TType.LIST:
           self.values = []
           (_etype348, _size345) = iprot.readListBegin()
-          for _i349 in xrange(_size345):
+          for _i349 in range(_size345):
             _elem350 = iprot.readString();
             self.values.append(_elem350)
           iprot.readListEnd()
@@ -9458,7 +9458,7 @@ class execute_prepared_cql3_query_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -9570,7 +9570,7 @@ class execute_prepared_cql3_query_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -9632,7 +9632,7 @@ class set_cql_version_args(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):
@@ -9693,7 +9693,7 @@ class set_cql_version_result(object):
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
-      for key, value in self.__dict__.iteritems()]
+      for key, value in self.__dict__.items()]
     return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
 
   def __eq__(self, other):

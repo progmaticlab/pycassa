@@ -164,7 +164,7 @@ def _to_timestamp(v, use_micros=False):
             raise TypeError('DateType arguments must be a datetime or timestamp')
 
         converted = v * scale
-    return long(converted)
+    return int(converted)
 
 class OldPycassaDateType(CassandraType):
     """
@@ -286,7 +286,7 @@ class DynamicCompositeType(CassandraType):
 
     def __str__(self):
         aliases = []
-        for k, v in self.aliases.iteritems():
+        for k, v in self.aliases.items():
             aliases.append(k + '=>' + str(v))
         return "DynamicCompositeType(" + ", ".join(aliases) + ")"
 

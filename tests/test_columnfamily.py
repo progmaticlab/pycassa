@@ -61,7 +61,7 @@ class TestColumnFamily(unittest.TestCase):
         columns = {'1': 'val1', '2': 'val2'}
         assert_raises(NotFoundException, cf.get, key)
         ts = cf.insert(key, columns)
-        assert_true(isinstance(ts, (int, long)))
+        assert_true(isinstance(ts, int))
         assert_equal(cf.get(key), columns)
 
     def test_insert_multiget(self):
@@ -136,7 +136,7 @@ class TestColumnFamily(unittest.TestCase):
 
     @requireOPP
     def test_insert_get_range(self):
-        keys = ['TestColumnFamily.test_insert_get_range%s' % i for i in xrange(5)]
+        keys = ['TestColumnFamily.test_insert_get_range%s' % i for i in range(5)]
         columns = {'1': 'val1', '2': 'val2'}
         for key in keys:
             cf.insert(key, columns)
@@ -267,14 +267,14 @@ class TestColumnFamily(unittest.TestCase):
     def insert_insert_get_indexed_slices(self):
         indexed_cf = ColumnFamily(pool, 'Indexed1')
 
-        columns = {'birthdate': 1L}
+        columns = {'birthdate': 1}
 
         keys = []
         for i in range(1, 4):
             indexed_cf.insert('key%d' % i, columns)
             keys.append('key%d')
 
-        expr = index.create_index_expression(column_name='birthdate', value=1L)
+        expr = index.create_index_expression(column_name='birthdate', value=1)
         clause = index.create_index_clause([expr])
 
         count = 0
@@ -287,12 +287,12 @@ class TestColumnFamily(unittest.TestCase):
     def test_get_indexed_slices_batching(self):
         indexed_cf = ColumnFamily(pool, 'Indexed1')
 
-        columns = {'birthdate': 1L}
+        columns = {'birthdate': 1}
 
         for i in range(200):
             indexed_cf.insert('key%d' % i, columns)
 
-        expr = index.create_index_expression(column_name='birthdate', value=1L)
+        expr = index.create_index_expression(column_name='birthdate', value=1)
         clause = index.create_index_clause([expr], count=10)
 
         result = list(indexed_cf.get_indexed_slices(clause, buffer_size=2))

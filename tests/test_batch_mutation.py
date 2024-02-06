@@ -1,4 +1,4 @@
-from __future__ import with_statement
+
 
 import sys
 import unittest
@@ -38,10 +38,10 @@ class TestMutator(unittest.TestCase):
 
     def test_insert(self):
         batch = cf.batch()
-        for key, cols in ROWS.iteritems():
+        for key, cols in ROWS.items():
             batch.insert(key, cols)
         batch.send()
-        for key, cols in ROWS.items():
+        for key, cols in list(ROWS.items()):
             assert cf.get(key) == cols
 
     def test_insert_supercolumns(self):
@@ -79,7 +79,7 @@ class TestMutator(unittest.TestCase):
         assert cf.get('1') == ROWS['1']
         assert_raises(NotFoundException, cf.get, '3')
         batch.send()
-        for key, cols in ROWS.items():
+        for key, cols in list(ROWS.items()):
             assert cf.get(key) == cols
 
     def test_remove_key(self):
@@ -117,11 +117,11 @@ class TestMutator(unittest.TestCase):
     def test_contextmgr(self):
         if sys.version_info < (2, 5):
             raise SkipTest("No context managers in Python < 2.5")
-        exec """with cf.batch(queue_size=2) as b:
+        exec("""with cf.batch(queue_size=2) as b:
     b.insert('1', ROWS['1'])
     b.insert('2', ROWS['2'])
     b.insert('3', ROWS['3'])
-assert cf.get('3') == ROWS['3']"""
+assert cf.get('3') == ROWS['3']""")
 
     def test_multi_column_family(self):
         batch = batch_mod.Mutator(pool)
@@ -135,16 +135,16 @@ assert cf.get('3') == ROWS['3']"""
 
     def test_atomic_insert_at_mutator_creation(self):
         batch = cf.batch(atomic=True)
-        for key, cols in ROWS.iteritems():
+        for key, cols in ROWS.items():
             batch.insert(key, cols)
         batch.send()
-        for key, cols in ROWS.items():
+        for key, cols in list(ROWS.items()):
             assert cf.get(key) == cols
 
     def test_atomic_insert_at_send(self):
         batch = cf.batch(atomic=True)
-        for key, cols in ROWS.iteritems():
+        for key, cols in ROWS.items():
             batch.insert(key, cols)
         batch.send(atomic=True)
-        for key, cols in ROWS.items():
+        for key, cols in list(ROWS.items()):
             assert cf.get(key) == cols

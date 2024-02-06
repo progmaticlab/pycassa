@@ -100,9 +100,9 @@ class TestCFs(unittest.TestCase):
         # names to values.
         type_groups = []
 
-        long_cols = [1111111111111111L,
-                     2222222222222222L,
-                     3333333333333333L]
+        long_cols = [1111111111111111,
+                     2222222222222222,
+                     3333333333333333]
         type_groups.append(self.make_group(TestCFs.cf_long, long_cols))
 
         int_cols = [1, 2, 3]
@@ -129,7 +129,7 @@ class TestCFs(unittest.TestCase):
         ascii_cols = ['aaaa', 'bbbb', 'cccc']
         type_groups.append(self.make_group(TestCFs.cf_ascii, ascii_cols))
 
-        utf8_cols = [u'a\u0020', u'b\u0020', u'c\u0020']
+        utf8_cols = ['a\u0020', 'b\u0020', 'c\u0020']
         type_groups.append(self.make_group(TestCFs.cf_utf8, utf8_cols))
 
         bytes_cols = ['aaaa', 'bbbb', 'cccc']
@@ -174,16 +174,16 @@ class TestCFs(unittest.TestCase):
             assert_equal(cf.get_count(KEYS[0]), 3)
 
             # Test xget paging
-            assert_equal(list(cf.xget(KEYS[0], buffer_size=2)), gdict.items())
+            assert_equal(list(cf.xget(KEYS[0], buffer_size=2)), list(gdict.items()))
             assert_equal(list(cf.xget(KEYS[0], column_reversed=True, buffer_size=2)),
-                         list(reversed(gdict.items())))
+                         list(reversed(list(gdict.items()))))
             assert_equal(list(cf.xget(KEYS[0], column_start=gcols[0], buffer_size=2)),
-                         gdict.items())
+                         list(gdict.items()))
             assert_equal(list(cf.xget(KEYS[0], column_finish=gcols[2], buffer_size=2)),
-                         gdict.items())
+                         list(gdict.items()))
             assert_equal(list(cf.xget(KEYS[0], column_start=gcols[2], column_finish=gcols[0],
                                       column_reversed=True, buffer_size=2)),
-                         list(reversed(gdict.items())))
+                         list(reversed(list(gdict.items()))))
             assert_equal(list(cf.xget(KEYS[0], column_start=gcols[1], column_finish=gcols[1],
                                       column_reversed=True, buffer_size=2)),
                          [(gcols[1], VALS[1])])
@@ -291,9 +291,9 @@ class TestSuperCFs(unittest.TestCase):
         # names to values.
         type_groups = []
 
-        long_cols = [1111111111111111L,
-                     2222222222222222L,
-                     3333333333333333L]
+        long_cols = [1111111111111111,
+                     2222222222222222,
+                     3333333333333333]
         type_groups.append(self.make_super_group(TestSuperCFs.cf_suplong, long_cols))
 
         int_cols = [1, 2, 3]
@@ -315,7 +315,7 @@ class TestSuperCFs(unittest.TestCase):
         ascii_cols = ['aaaa', 'bbbb', 'cccc']
         type_groups.append(self.make_super_group(TestSuperCFs.cf_supascii, ascii_cols))
 
-        utf8_cols = [u'a\u0020', u'b\u0020', u'c\u0020']
+        utf8_cols = ['a\u0020', 'b\u0020', 'c\u0020']
         type_groups.append(self.make_super_group(TestSuperCFs.cf_suputf8, utf8_cols))
 
         bytes_cols = ['aaaa', 'bbbb', 'cccc']
@@ -344,7 +344,7 @@ class TestSuperCFs(unittest.TestCase):
                          {gcols[0]: {'bytes': VALS[0]}})
 
             # test xget paging
-            assert_equal(list(cf.xget(KEYS[0], buffer_size=2)), gdict.items())
+            assert_equal(list(cf.xget(KEYS[0], buffer_size=2)), list(gdict.items()))
 
             assert_equal(cf.get_count(KEYS[0]), 3)
 
@@ -448,7 +448,7 @@ class TestSuperSubCFs(unittest.TestCase):
                 cf.remove(key)
 
     def make_sub_group(self, cf, cols):
-        diction = {123L: {cols[0]: VALS[0],
+        diction = {123: {cols[0]: VALS[0],
                           cols[1]: VALS[1],
                           cols[2]: VALS[2]}}
         return {'cf': cf, 'cols': cols, 'dict': diction}
@@ -460,9 +460,9 @@ class TestSuperSubCFs(unittest.TestCase):
         # names to values.
         type_groups = []
 
-        long_cols = [1111111111111111L,
-                     2222222222222222L,
-                     3333333333333333L]
+        long_cols = [1111111111111111,
+                     2222222222222222,
+                     3333333333333333]
         type_groups.append(self.make_sub_group(TestSuperSubCFs.cf_suplong_sublong, long_cols))
 
         int_cols = [1, 2, 3]
@@ -484,7 +484,7 @@ class TestSuperSubCFs(unittest.TestCase):
         ascii_cols = ['aaaa', 'bbbb', 'cccc']
         type_groups.append(self.make_sub_group(TestSuperSubCFs.cf_suplong_subascii, ascii_cols))
 
-        utf8_cols = [u'a\u0020', u'b\u0020', u'c\u0020']
+        utf8_cols = ['a\u0020', 'b\u0020', 'c\u0020']
         type_groups.append(self.make_sub_group(TestSuperSubCFs.cf_suplong_subutf8, utf8_cols))
 
         bytes_cols = ['aaaa', 'bbbb', 'cccc']
@@ -498,21 +498,21 @@ class TestSuperSubCFs(unittest.TestCase):
             cf.insert(KEYS[0], gdict)
 
             assert_equal(cf.get(KEYS[0]), gdict)
-            assert_equal(cf.get(KEYS[0], columns=[123L]), gdict)
+            assert_equal(cf.get(KEYS[0], columns=[123]), gdict)
 
             # A start and end that are the same
-            assert_equal(cf.get(KEYS[0], column_start=123L, column_finish=123L), gdict)
+            assert_equal(cf.get(KEYS[0], column_start=123, column_finish=123), gdict)
 
-            res = cf.get(KEYS[0], super_column=123L, column_start=group.get('cols')[0])
-            assert_equal(res, gdict.get(123L))
+            res = cf.get(KEYS[0], super_column=123, column_start=group.get('cols')[0])
+            assert_equal(res, gdict.get(123))
 
-            res = cf.get(KEYS[0], super_column=123L, column_finish=group.get('cols')[-1])
-            assert_equal(res, gdict.get(123L))
+            res = cf.get(KEYS[0], super_column=123, column_finish=group.get('cols')[-1])
+            assert_equal(res, gdict.get(123))
 
             assert_equal(cf.get_count(KEYS[0]), 1)
 
             # Test removing rows
-            cf.remove(KEYS[0], super_column=123L)
+            cf.remove(KEYS[0], super_column=123)
             assert_equal(cf.get_count(KEYS[0]), 0)
 
             # Insert more than one row now
@@ -529,19 +529,19 @@ class TestSuperSubCFs(unittest.TestCase):
             res = cf.multiget(KEYS[2:])
             assert_equal(res.get(KEYS[2]), gdict)
 
-            res = cf.multiget(KEYS[:], columns=[123L])
+            res = cf.multiget(KEYS[:], columns=[123])
             for i in range(3):
                 assert_equal(res.get(KEYS[i]), gdict)
 
-            res = cf.multiget(KEYS[:], super_column=123L)
+            res = cf.multiget(KEYS[:], super_column=123)
             for i in range(3):
-                assert_equal(res.get(KEYS[i]), gdict.get(123L))
+                assert_equal(res.get(KEYS[i]), gdict.get(123))
 
-            res = cf.multiget(KEYS[:], super_column=123L, column_start=group.get('cols')[0])
+            res = cf.multiget(KEYS[:], super_column=123, column_start=group.get('cols')[0])
             for i in range(3):
-                assert_equal(res.get(KEYS[i]), gdict.get(123L))
+                assert_equal(res.get(KEYS[i]), gdict.get(123))
 
-            res = cf.multiget(KEYS[:], column_start=123L, column_finish=123L)
+            res = cf.multiget(KEYS[:], column_start=123, column_finish=123)
             for j in range(3):
                 assert_equal(res.get(KEYS[j]), gdict)
 
@@ -551,25 +551,25 @@ class TestSuperSubCFs(unittest.TestCase):
             for sub_res in res:
                 assert_equal(sub_res[1], gdict)
 
-            res = cf.get_range(start=KEYS[0], column_start=123L, column_finish=123L)
+            res = cf.get_range(start=KEYS[0], column_start=123, column_finish=123)
             for sub_res in res:
                 assert_equal(sub_res[1], gdict)
 
-            res = cf.get_range(start=KEYS[0], columns=[123L])
+            res = cf.get_range(start=KEYS[0], columns=[123])
             for sub_res in res:
                 assert_equal(sub_res[1], gdict)
 
-            res = cf.get_range(start=KEYS[0], super_column=123L)
+            res = cf.get_range(start=KEYS[0], super_column=123)
             for sub_res in res:
-                assert_equal(sub_res[1], gdict.get(123L))
+                assert_equal(sub_res[1], gdict.get(123))
 
-            res = cf.get_range(start=KEYS[0], super_column=123L, column_start=group.get('cols')[0])
+            res = cf.get_range(start=KEYS[0], super_column=123, column_start=group.get('cols')[0])
             for sub_res in res:
-                assert_equal(sub_res[1], gdict.get(123L))
+                assert_equal(sub_res[1], gdict.get(123))
 
-            res = cf.get_range(start=KEYS[0], super_column=123L, column_finish=group.get('cols')[-1])
+            res = cf.get_range(start=KEYS[0], super_column=123, column_finish=group.get('cols')[-1])
             for sub_res in res:
-                assert_equal(sub_res[1], gdict.get(123L))
+                assert_equal(sub_res[1], gdict.get(123))
 
 class TestValidators(unittest.TestCase):
 
@@ -611,9 +611,9 @@ class TestValidators(unittest.TestCase):
         cf = ColumnFamily(pool, 'Validators')
         key = 'key1'
 
-        col = {'long': 1L}
+        col = {'long': 1}
         cf.insert(key, col)
-        assert_equal(cf.get(key)['long'], 1L)
+        assert_equal(cf.get(key)['long'], 1)
 
         col = {'int': 1}
         cf.insert(key, col)
@@ -631,9 +631,9 @@ class TestValidators(unittest.TestCase):
         cf.insert(key, col)
         assert_equal(cf.get(key)['ascii'], 'aaa')
 
-        col = {'utf8': u'a\u0020'}
+        col = {'utf8': 'a\u0020'}
         cf.insert(key, col)
-        assert_equal(cf.get(key)['utf8'], u'a\u0020')
+        assert_equal(cf.get(key)['utf8'], 'a\u0020')
 
         col = {'bytes': 'aaa'}
         cf.insert(key, col)
@@ -653,7 +653,7 @@ class TestDefaultValidators(unittest.TestCase):
         cf = ColumnFamily(pool, 'DefaultValidator')
         key = 'key1'
 
-        col_cf = {'aaaaaa': 1L}
+        col_cf = {'aaaaaa': 1}
         col_cm = {'subcol': TIME1}
         col_ncf = {'aaaaaa': TIME1}
 
@@ -661,12 +661,12 @@ class TestDefaultValidators(unittest.TestCase):
         #  longs and cm for 'subcol' allows TIMEUUIDs.
         cf.insert(key, col_cf)
         cf.insert(key, col_cm)
-        assert_equal(cf.get(key), {'aaaaaa': 1L, 'subcol': TIME1})
+        assert_equal(cf.get(key), {'aaaaaa': 1, 'subcol': TIME1})
 
         # Insert multiple columns at once
         col_cf.update(col_cm)
         cf.insert(key, col_cf)
-        assert_equal(cf.get(key), {'aaaaaa': 1L, 'subcol': TIME1})
+        assert_equal(cf.get(key), {'aaaaaa': 1, 'subcol': TIME1})
 
         assert_raises(TypeError, cf.insert, key, col_ncf)
 
@@ -706,9 +706,9 @@ class TestKeyValidators(unittest.TestCase):
     def setUp(self):
         self.type_groups = []
 
-        long_keys = [1111111111111111L,
-                     2222222222222222L,
-                     3333333333333333L]
+        long_keys = [1111111111111111,
+                     2222222222222222,
+                     3333333333333333]
         self.type_groups.append((TestKeyValidators.cf_long, long_keys))
 
         int_keys = [1, 2, 3]
@@ -725,7 +725,7 @@ class TestKeyValidators(unittest.TestCase):
         ascii_keys = ['aaaa', 'bbbb', 'cccc']
         self.type_groups.append((TestKeyValidators.cf_ascii, ascii_keys))
 
-        utf8_keys = [u'a\u0020', u'b\u0020', u'c\u0020']
+        utf8_keys = ['a\u0020', 'b\u0020', 'c\u0020']
         self.type_groups.append((TestKeyValidators.cf_utf8, utf8_keys))
 
         bytes_keys = ['aaaa', 'bbbb', 'cccc']
@@ -820,7 +820,7 @@ class TestKeyValidators(unittest.TestCase):
         sys.close()
         cf_long = ColumnFamily(pool, 'KeyLongCounter')
 
-        key = 1111111111111111L
+        key = 1111111111111111
 
         cf_long.add(key, 'col')
         assert_equal(cf_long.get(key), {'col': 1})
@@ -849,7 +849,7 @@ class TestComposites(unittest.TestCase):
 
     def test_static_composite_basic(self):
         cf = ColumnFamily(pool, 'StaticComposite')
-        colname = (127312831239123123, 1, uuid.uuid1(), uuid.uuid4(), 'foo', u'ba\u0254r', 'baz')
+        colname = (127312831239123123, 1, uuid.uuid1(), uuid.uuid4(), 'foo', 'ba\u0254r', 'baz')
         cf.insert('key', {colname: 'val'})
         assert_equal(cf.get('key'), {colname: 'val'})
 
@@ -961,7 +961,7 @@ class TestDynamicComposites(unittest.TestCase):
 
     def test_static_composite_basic(self):
         cf = ColumnFamily(pool, 'StaticDynamicComposite')
-        colname = (l(127312831239123123), i(1), T(uuid.uuid1()), x(uuid.uuid4()), a('foo'), s(u'ba\u0254r'), b('baz'))
+        colname = (l(127312831239123123), i(1), T(uuid.uuid1()), x(uuid.uuid4()), a('foo'), s('ba\u0254r'), b('baz'))
         cf.insert('key', {colname: 'val'})
         assert_equal(cf.get('key'), {colname: 'val'})
 
@@ -1053,7 +1053,7 @@ class TestBigInt(unittest.TestCase):
         self.cf.insert(self.key, {-256: '-256'})
         self.cf.insert(self.key, {-257: '-257'})
         for key, cols in self.cf.get_range():
-            self.assertEquals(str(cols.keys()[0]), cols.values()[0])
+            self.assertEqual(str(list(cols.keys())[0]), list(cols.values())[0])
 
 class TestTimeUUIDs(unittest.TestCase):
 
@@ -1128,7 +1128,7 @@ class TestTimeUUIDs(unittest.TestCase):
         t = time.time()
         col = {t: 'foo'}
         cf_time.insert(key, col)
-        uuid_res = cf_time.get(key).keys()[0]
+        uuid_res = list(cf_time.get(key).keys())[0]
         timestamp = convert_uuid_to_time(uuid_res)
         assert_almost_equal(timestamp, t, places=3)
         cf_time.remove(key)
@@ -1154,8 +1154,8 @@ class TestTypeErrors(unittest.TestCase):
 class TestDateTypes(unittest.TestCase):
 
     def _compare_dates(self, d1, d2):
-        self.assertEquals(d1.timetuple(), d2.timetuple())
-        self.assertEquals(int(d1.microsecond/1e3), int(d2.microsecond/1e3))
+        self.assertEqual(d1.timetuple(), d2.timetuple())
+        self.assertEqual(int(d1.microsecond/1e3), int(d2.microsecond/1e3))
 
     def test_compatibility(self):
         self.cf = ColumnFamily(pool, 'Standard1')
@@ -1198,7 +1198,7 @@ class TestPackerOverride(unittest.TestCase):
 
         assert_equal(cf.column_validators[('a', 'b')].__class__, BooleanType)
 
-        keys = cf.column_validators.keys()
+        keys = list(cf.column_validators.keys())
         assert_equal(keys, [('a', 'b')])
 
         del cf.column_validators[('a', 'b')]

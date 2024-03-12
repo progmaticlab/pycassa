@@ -5,6 +5,7 @@ manipulation of data inside Cassandra.
 .. seealso:: :mod:`pycassa.columnfamilymap`
 """
 
+import six
 import time
 import struct
 from UserDict import DictMixin
@@ -413,7 +414,7 @@ class ColumnFamily(object):
             return
 
         if not self.autopack_names:
-            if not isinstance(value, (str, bytes)):
+            if not isinstance(value, six.stringtypes):
                 raise TypeError("A str or unicode column name was expected, " +
                                 "but %s was received instead (%s)"
                                 % (value.__class__.__name__, str(value)))
@@ -455,7 +456,7 @@ class ColumnFamily(object):
             return
 
         if not self.autopack_values:
-            if not isinstance(value, (str, bytes)):
+            if not isinstance(value, six.string_types):
                 raise TypeError("A str or unicode column value was expected for " +
                                 "column '%s', but %s was received instead (%s)"
                                 % (str(col_name), value.__class__.__name__, str(value)))

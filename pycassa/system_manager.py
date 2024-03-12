@@ -1,3 +1,4 @@
+import six
 import time
 
 from pycassa.connection import (Connection, default_socket_factory,
@@ -322,7 +323,7 @@ class SystemManager(object):
         if classname:
             if isinstance(classname, types.CassandraType):
                 s = str(classname)
-            elif isinstance(classname, (str, bytes)):
+            elif isinstance(classname, six.string_types):
                 s = str(classname)
             else:
                 raise TypeError(

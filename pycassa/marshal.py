@@ -313,7 +313,7 @@ def packer_for(typestr):
 
     else: # data_type == 'BytesType' or something unknown
         def pack_bytes(v, _=None):
-            if not isinstance(v, str):
+            if not isinstance(v, (str, bytes)):
                 raise TypeError("A str or unicode value was expected, " +
                                 "but %s was received instead (%s)"
                                 % (v.__class__.__name__, str(v)))

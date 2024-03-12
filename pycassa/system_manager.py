@@ -322,8 +322,8 @@ class SystemManager(object):
         if classname:
             if isinstance(classname, types.CassandraType):
                 s = str(classname)
-            elif isinstance(classname, str):
-                s = classname
+            elif isinstance(classname, (str, bytes)):
+                s = str(classname)
             else:
                 raise TypeError(
                         "Column family validators and comparators " \

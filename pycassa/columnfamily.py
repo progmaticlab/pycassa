@@ -414,7 +414,7 @@ class ColumnFamily(object):
             return
 
         if not self.autopack_names:
-            if not isinstance(value, six.stringtypes):
+            if not isinstance(value, six.string_types):
                 raise TypeError("A str or unicode column name was expected, " +
                                 "but %s was received instead (%s)"
                                 % (value.__class__.__name__, str(value)))

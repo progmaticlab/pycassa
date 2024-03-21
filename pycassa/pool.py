@@ -8,8 +8,10 @@ import random
 import socket
 import sys
 
+#Fix: NameError: global name 'queue' is not defined
+
 if 'gevent.monkey' in sys.modules:
-    from gevent import queue as Queue
+    from gevent import queue
 else:
     import queue  # noqa
 
